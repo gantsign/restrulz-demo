@@ -353,3 +353,6 @@ gradle-app.setting
 
 # XText plugin temporary state
 /.idea/xtextAutoBuilderState.xml
+
+# Allow Maven Wrapper JAR to be committed
+!/.mvn/wrapper/maven-wrapper.jar

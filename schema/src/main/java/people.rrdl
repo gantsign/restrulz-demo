@@ -1,0 +1,48 @@
+@doc {
+  title: "People API"
+  description: "
+    A nice long description:
+
+    * With
+    * Some
+    * Bullet points.
+  "
+  version: "1.0.0"
+}
+specification people {
+  type name : string ^[\p{Alpha}']+$ length [1..100]
+  type uuid : string ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$ length [36..36]
+  type age : int[0..150]
+  type months-employed : int[0..1000]
+
+  class address {
+    id: uuid
+  }
+
+  class person {
+    first-name : name
+    last-name : name | empty
+    age : age
+    employed : boolean
+    months-employed : months-employed | null
+    work-address: address | null
+    home-address: address
+    address-history : address[]
+  }
+
+  response get-person-success : ok person
+
+  response get-person-array-success : ok person
+
+  response update-person-success : ok person
+
+  path /person/id/{ id : uuid } : person-ws {
+    get -> get-person(/id) : get-person-success
+
+    put -> update-person(/id, *person) : update-person-success
+  }
+
+  path /person/age/{ age : age } : person-age-ws {
+    get -> get-persons-with-age(/age) : get-person-array-success
+  }
+}

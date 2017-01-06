@@ -12,10 +12,10 @@ continuation_indent_size = 8
 trim_trailing_whitespace = true
 
 # Files with a smaller indent
-[*.{java,ts,js,json,xml,yml}]
+[*.{java,ts,js,json,xml,yml,rrdl}]
 indent_size = 2
 continuation_indent_size = 4
 
 # File encoding
-[*.{java,ts,js,json}]
+[*.{java,ts,js,json,rrdl}]
 charset = utf-8

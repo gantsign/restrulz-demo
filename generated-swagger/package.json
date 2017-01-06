@@ -1,0 +1,11 @@
+{
+  "name": "generated-swagger",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "./node_modules/.bin/ts-node ./generate-swagger.ts"
+  },
+  "devDependencies": {
+    "@gantsign/restrulz-gen": "^0.9.1",
+    "ts-node": "^2.0.0"
+  }
+}

@@ -3,16 +3,23 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.gantsign.restrulz.demo</groupId>
-  <artifactId>restrulz-demo</artifactId>
+  <artifactId>restrulz-parent</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
   <prerequisites>
     <maven>3.2.5</maven>
   </prerequisites>
 
+  <modules>
+    <module>schema</module>
+    <module>generated-swagger</module>
+    <module>generated-server</module>
+    <module>generated-client</module>
+  </modules>
+
   <properties>
     <dependencies.slf4j.version>1.7.21</dependencies.slf4j.version>
-    <docker.repository>restrulz/demo</docker.repository>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,59 +29,12 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-        <version>20.0</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>${dependencies.slf4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.12</version>
-        <scope>test</scope>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-annotations</artifactId>
+        <version>1.5.12</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.16.12</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.1.8</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.truth</groupId>
-      <artifactId>truth</artifactId>
-      <version>0.30</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
 
   <build>
     <pluginManagement>
@@ -85,22 +45,9 @@
           <version>3.11.0</version>
         </plugin>
         <plugin>
-          <groupId>io.fabric8</groupId>
-          <artifactId>docker-maven-plugin</artifactId>
-          <version>0.18.1</version>
-          <extensions>true</extensions>
-          <dependencies>
-            <dependency>
-              <groupId>org.slf4j</groupId>
-              <artifactId>jcl-over-slf4j</artifactId>
-              <version>${dependencies.slf4j.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-jdk14</artifactId>
-              <version>${dependencies.slf4j.version}</version>
-            </dependency>
-          </dependencies>
+          <groupId>io.swagger</groupId>
+          <artifactId>swagger-codegen-maven-plugin</artifactId>
+          <version>2.2.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -157,7 +104,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>2.10</version>
+          <version>3.0.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -210,9 +157,14 @@
           <version>2.19.1</version>
         </plugin>
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>1.12</version>
+        </plugin>
+        <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.7.7.201606060606</version>
+          <version>0.7.8</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -239,46 +191,6 @@
               <goal>sort</goal>
             </goals>
             <phase>verify</phase>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>io.fabric8</groupId>
-        <artifactId>docker-maven-plugin</artifactId>
-        <configuration>
-          <images>
-            <image>
-              <alias>app</alias>
-              <name>${docker.repository}</name>
-              <build>
-                <tags>
-                  <tag>latest</tag>
-                  <tag>${project.version}</tag>
-                </tags>
-                <from>openjdk:8-jre-alpine</from>
-                <assembly>
-                  <mode>dir</mode>
-                  <basedir>/usr/share/${project.artifactId}</basedir>
-                  <descriptorRef>artifact-with-dependencies</descriptorRef>
-                </assembly>
-                <entryPoint>
-                  <exec>
-                    <arg>java</arg>
-                    <arg>-jar</arg>
-                    <arg>/usr/share/${project.artifactId}/${project.build.finalName}.jar</arg>
-                  </exec>
-                </entryPoint>
-              </build>
-            </image>
-          </images>
-        </configuration>
-        <executions>
-          <execution>
-            <id>build-image</id>
-            <goals>
-              <goal>build</goal>
-            </goals>
-            <phase>package</phase>
           </execution>
         </executions>
       </plugin>
@@ -312,10 +224,6 @@
             </goals>
             <configuration>
               <failOnWarning>true</failOnWarning>
-              <usedDependencies>
-                <usedDependency>ch.qos.logback:logback-classic</usedDependency>
-                <usedDependency>org.projectlombok:lombok</usedDependency>
-              </usedDependencies>
             </configuration>
           </execution>
         </executions>
@@ -349,6 +257,10 @@
                 <dependencyConvergence />
                 <requireReleaseDeps>
                   <message>No Snapshots Allowed!</message>
+                  <failWhenParentIsSnapshot>false</failWhenParentIsSnapshot>
+                  <excludes>
+                    <exclude>com.gantsign.restrulz.demo:*</exclude>
+                  </excludes>
                 </requireReleaseDeps>
                 <!-- When there are multiple versions of a dependency you have to choose the maximum version. -->
                 <requireUpperBoundDeps />
@@ -372,6 +284,12 @@
                 </bannedPlugins>
                 <requireNoRepositories>
                   <message>Best Practice is to never define repositories in pom.xml (use a repository manager instead)</message>
+                  <allowedRepositories>
+                    <allowedRepository>bintray-gantsign-maven</allowedRepository>
+                  </allowedRepositories>
+                  <allowedPluginRepositories>
+                    <allowedPluginRepository>bintray-gantsign-maven</allowedPluginRepository>
+                  </allowedPluginRepositories>
                 </requireNoRepositories>
                 <banDuplicateClasses>
                   <findAllDuplicates>true</findAllDuplicates>
@@ -384,11 +302,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <configuration>
-          <systemPropertyVariables>
-            <docker.image>${docker.repository}:${project.version}</docker.image>
-          </systemPropertyVariables>
-        </configuration>
         <executions>
           <execution>
             <goals>

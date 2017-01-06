@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="generated-client" />
+        <module name="generated-server" />
+        <module name="generated-swagger" />
+        <module name="schema" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="generated-client" target="1.8" />
+      <module name="generated-server" target="1.8" />
+      <module name="generated-swagger" target="1.8" />
+      <module name="restrulz-demo" target="1.8" />
+      <module name="schema" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

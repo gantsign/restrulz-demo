@@ -6,6 +6,7 @@
   },
   "devDependencies": {
     "@gantsign/restrulz-gen": "^0.9.1",
-    "ts-node": "^2.0.0"
+    "ts-node": "^2.0.0",
+    "typescript": "^2.1.5"
   }
 }

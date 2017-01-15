@@ -5,7 +5,7 @@
     "build": "./node_modules/.bin/ts-node ./generate-swagger.ts"
   },
   "devDependencies": {
-    "@gantsign/restrulz-gen": "^0.9.1",
+    "@gantsign/restrulz-gen": "^0.9.2",
     "ts-node": "^2.0.0",
     "typescript": "^2.1.5"
   }

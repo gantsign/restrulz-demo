@@ -37,12 +37,12 @@ specification people {
   response update-person-success : ok person
 
   path /person/id/{ id : uuid } : person-ws {
-    get -> get-person(/id) : get-person-success
+    get -> get-person(id = /id) : get-person-success
 
-    put -> update-person(/id, *person) : update-person-success
+    put -> update-person(id = /id, person = *person) : update-person-success
   }
 
   path /person/age/{ age : age } : person-age-ws {
-    get -> get-persons-with-age(/age) : get-person-array-success
+    get -> get-persons-with-age(age = /age) : get-person-array-success
   }
 }

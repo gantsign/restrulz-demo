@@ -54,7 +54,7 @@ The Restrulz specification is located at: `schema/src/main/java/people.rrdl`.
 
 This demo is under the [MIT Licence](https://raw.githubusercontent.com/gantsign/restrulz-demo/master/LICENSE).
 
-# Author Information
+# Author information
 
 John Freeman
 

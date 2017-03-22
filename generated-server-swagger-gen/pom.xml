@@ -7,35 +7,19 @@
     <version>1.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-
-  <artifactId>generated-client</artifactId>
+  <artifactId>generated-server-swagger-gen</artifactId>
 
   <properties>
-    <default.package>com.example.rest.client</default.package>
-    <dependency.retrofit.version>2.1.0</dependency.retrofit.version>
+    <default.package>com.example.rest.server</default.package>
+    <springfox-version>2.5.0</springfox-version>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>com.google.code.gson</groupId>
-        <artifactId>gson</artifactId>
-        <version>2.8.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.squareup.okhttp3</groupId>
-        <artifactId>okhttp</artifactId>
-        <version>3.5.0</version>
-      </dependency>
-      <dependency>
-        <groupId>io.reactivex</groupId>
-        <artifactId>rxjava</artifactId>
-        <version>1.2.5</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <dependencies>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>2.8.5</version>
+    </dependency>
     <dependency>
       <groupId>com.gantsign.restrulz.demo</groupId>
       <artifactId>generated-swagger</artifactId>
@@ -43,57 +27,13 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.okhttp3</groupId>
-      <artifactId>okhttp</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.retrofit2</groupId>
-      <artifactId>adapter-rxjava</artifactId>
-      <version>${dependency.retrofit.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.retrofit2</groupId>
-      <artifactId>converter-gson</artifactId>
-      <version>${dependency.retrofit.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.retrofit2</groupId>
-      <artifactId>converter-scalars</artifactId>
-      <version>${dependency.retrofit.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.retrofit2</groupId>
-      <artifactId>retrofit</artifactId>
-      <version>${dependency.retrofit.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.reactivex</groupId>
-      <artifactId>rxjava</artifactId>
-    </dependency>
-    <dependency>
       <groupId>io.swagger</groupId>
       <artifactId>swagger-annotations</artifactId>
     </dependency>
     <dependency>
-      <groupId>joda-time</groupId>
-      <artifactId>joda-time</artifactId>
-      <version>2.9.7</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.oltu.oauth2</groupId>
-      <artifactId>org.apache.oltu.oauth2.client</artifactId>
-      <version>1.0.1</version>
-      <exclusions>
-        <exclusion>
-          <!-- The client jar seems to be an uberjar including the common module. -->
-          <groupId>org.apache.oltu.oauth2</groupId>
-          <artifactId>org.apache.oltu.oauth2.common</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>4.3.5.RELEASE</version>
     </dependency>
   </dependencies>
 
@@ -109,12 +49,16 @@
             </goals>
             <configuration>
               <inputSpec>${project.build.directory}/swagger/people.swagger.yml</inputSpec>
-              <language>io.swagger.codegen.languages.JavaClientCodegen</language>
-              <library>retrofit2</library>
+              <language>io.swagger.codegen.languages.SpringCodegen</language>
+              <library>spring-boot</library>
               <output>${project.build.directory}/generated-sources</output>
               <addCompileSourceRoot>false</addCompileSourceRoot>
               <configOptions>
-                <useRxJava>true</useRxJava>
+                <basePackage>${default.package}</basePackage>
+                <configPackage>${default.package}.config</configPackage>
+                <java8>true</java8>
+                <async>true</async>
+                <interfaceOnly>true</interfaceOnly>
               </configOptions>
               <apiPackage>${default.package}.handler</apiPackage>
               <modelPackage>${default.package}.model</modelPackage>
@@ -152,6 +96,7 @@
             <configuration>
               <failOnWarning>true</failOnWarning>
               <usedDependencies>
+                <usedDependency>com.fasterxml.jackson.core:jackson-annotations</usedDependency>
                 <usedDependency>com.gantsign.restrulz.demo:generated-swagger</usedDependency>
               </usedDependencies>
             </configuration>

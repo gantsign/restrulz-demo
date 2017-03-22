@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/generated-client/generated-client.iml" filepath="$PROJECT_DIR$/generated-client/generated-client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/generated-server/generated-server.iml" filepath="$PROJECT_DIR$/generated-server/generated-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/generated-client-swagger-gen/generated-client-swagger-gen.iml" filepath="$PROJECT_DIR$/generated-client-swagger-gen/generated-client-swagger-gen.iml" />
       <module fileurl="file://$PROJECT_DIR$/generated-server-restrulz-gen/generated-server-restrulz-gen.iml" filepath="$PROJECT_DIR$/generated-server-restrulz-gen/generated-server-restrulz-gen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/generated-server-swagger-gen/generated-server-swagger-gen.iml" filepath="$PROJECT_DIR$/generated-server-swagger-gen/generated-server-swagger-gen.iml" />
       <module fileurl="file://$PROJECT_DIR$/generated-swagger/generated-swagger.iml" filepath="$PROJECT_DIR$/generated-swagger/generated-swagger.iml" />
       <module fileurl="file://$PROJECT_DIR$/restrulz-demo.iml" filepath="$PROJECT_DIR$/restrulz-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/schema/schema.iml" filepath="$PROJECT_DIR$/schema/schema.iml" />

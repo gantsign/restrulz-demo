@@ -7,16 +7,20 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="generated-client" />
+        <module name="generated-client-swagger-gen" />
         <module name="generated-server" />
         <module name="generated-server-restrulz-gen" />
+        <module name="generated-server-swagger-gen" />
         <module name="generated-swagger" />
         <module name="schema" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="generated-client" target="1.8" />
+      <module name="generated-client-swagger-gen" target="1.8" />
       <module name="generated-server" target="1.8" />
       <module name="generated-server-restrulz-gen" target="1.8" />
+      <module name="generated-server-swagger-gen" target="1.8" />
       <module name="generated-swagger" target="1.8" />
       <module name="restrulz-demo" target="1.8" />
       <module name="schema" target="1.8" />

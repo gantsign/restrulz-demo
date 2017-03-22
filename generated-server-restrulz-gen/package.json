@@ -1,8 +1,8 @@
 {
-  "name": "generated-swagger",
+  "name": "generated-server",
   "version": "0.0.1",
   "scripts": {
-    "build": "./node_modules/.bin/ts-node ./generate-swagger.ts"
+    "build": "./node_modules/.bin/ts-node ./generate-server.ts"
   },
   "devDependencies": {
     "@gantsign/restrulz-gen": "^0.9.8",

@@ -15,6 +15,7 @@
     <module>schema</module>
     <module>generated-swagger</module>
     <module>generated-server</module>
+    <module>generated-server-restrulz-gen</module>
     <module>generated-client</module>
   </modules>
 

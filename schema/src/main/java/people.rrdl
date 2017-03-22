@@ -14,6 +14,8 @@ specification people {
   type uuid : string ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$ length [36..36]
   type age : int[0..150]
   type months-employed : int[0..1000]
+  type error-code: string ^[a-zA-Z0-9_]+$ length [1..20]
+  type error-message: string ^(?s).+$ length [1..10000]
 
   class address {
     id: uuid
@@ -30,19 +32,29 @@ specification people {
     address-history : address[]
   }
 
-  response get-person-success : ok person
+  class error {
+  	error-code: error-code
+  	error-message: error-message
+  }
 
-  response get-person-array-success : ok person
+  response get-person-list-success : ok person[]
+
+  response get-person-success : ok person
 
   response update-person-success : ok person
 
-  path /person/id/{ id : uuid } : person-ws {
-    get -> get-person(id = /id) : get-person-success
+  response server-error : internal-server-error error
 
-    put -> update-person(id = /id, person = *person) : update-person-success
-  }
+  response invalid-request : bad-request error
 
-  path /person/age/{ age : age } : person-age-ws {
-    get -> get-persons-with-age(age = /age) : get-person-array-success
+  path /person : person-ws {
+
+	get -> get-person-list() : get-person-list-success | server-error
+
+  	path /{id: uuid} {
+    	get -> get-person(id = /id) : get-person-success | invalid-request | server-error
+
+    	put -> update-person(id = /id, person = *person) : update-person-success | invalid-request | server-error
+  	}
   }
 }

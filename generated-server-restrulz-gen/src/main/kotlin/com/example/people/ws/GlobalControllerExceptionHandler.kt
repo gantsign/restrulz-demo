@@ -2,6 +2,7 @@ package com.example.people.ws
 
 import com.example.people.model.Error
 import com.gantsign.restrulz.json.reader.ParseException
+import com.gantsign.restrulz.validation.InvalidArgumentException
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,6 +19,16 @@ class GlobalControllerExceptionHandler {
         log.error("Parsing error", e)
         val body = Error(
                 errorCode = "VAL_001",
+                errorMessage = e.message!!
+        )
+        return ResponseEntity<Error>(body, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(InvalidArgumentException::class)
+    fun handleInvalidArgumentException(e: InvalidArgumentException): ResponseEntity<Error> {
+        log.error("Invalid argument error", e)
+        val body = Error(
+                errorCode = "VAL_002",
                 errorMessage = e.message!!
         )
         return ResponseEntity<Error>(body, HttpStatus.BAD_REQUEST)

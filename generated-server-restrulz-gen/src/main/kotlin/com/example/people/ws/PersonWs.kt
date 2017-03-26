@@ -6,9 +6,7 @@ import com.example.people.model.Error
 import com.example.people.model.Person
 import com.example.people.service.PersonService
 import com.example.people.ws.api.PersonWsApi
-import com.example.people.ws.api.personws.GetPersonListResponse
-import com.example.people.ws.api.personws.GetPersonResponse
-import com.example.people.ws.api.personws.UpdatePersonResponse
+import com.example.people.ws.api.personws.*
 import io.reactivex.Single
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
@@ -17,25 +15,6 @@ import org.springframework.stereotype.Component
 class PersonWs(private val personService: PersonService) : PersonWsApi {
 
     private val log = LoggerFactory.getLogger(PersonWs::class.java)
-
-    private fun Throwable.toError(): Error {
-        return if (this is ApplicationException) {
-            Error(
-                    errorCode = this.code,
-                    errorMessage = this.message!!
-            )
-        } else {
-            unexpectedError
-        }
-    }
-
-    fun <T> wrapException(single: () -> Single<T>): Single<T> {
-        try {
-            return single()
-        } catch (e: Throwable) {
-            return Single.error(e)
-        }
-    }
 
     private fun logException(t: Throwable) {
         if (t is ValidationException) {
@@ -47,39 +26,64 @@ class PersonWs(private val personService: PersonService) : PersonWsApi {
         }
     }
 
-    override fun getPersonList(): Single<GetPersonListResponse> {
-        return wrapException { personService.getPersonList() }
+    fun toError(e: Throwable): Error {
+        return if (this is ApplicationException) {
+            Error(
+                    errorCode = this.code,
+                    errorMessage = this.message!!
+            )
+        } else {
+            unexpectedError
+        }
+    }
+
+    override fun getPersonList(
+            singleRequest: Single<GetPersonListRequest>): Single<GetPersonListResponse> {
+
+        return singleRequest
+                .flatMap({ personService.getPersonList() })
                 .map(GetPersonListResponse.Companion::ok)
                 .doOnError(this::logException)
-                .onErrorReturn { e ->
-                    GetPersonListResponse.internalServerError(e.toError())
-                }
+                .onErrorReturn({ e ->
+                    GetPersonListResponse.internalServerError(toError(e))
+                })
     }
 
-    override fun getPerson(id: String): Single<GetPersonResponse> {
-        return wrapException { personService.getPerson(id) }
+    override fun getPerson(singleRequest: Single<GetPersonRequest>): Single<GetPersonResponse> {
+        return singleRequest
+                .flatMap({ request ->
+                    personService.getPerson(request.id)
+                })
                 .map(GetPersonResponse.Companion::ok)
                 .doOnError(this::logException)
-                .onErrorReturn { e ->
+                .onErrorResumeNext({ e ->
                     if (e is ValidationException) {
-                        GetPersonResponse.badRequest(e.toError())
+                        log.debug("Validation exception", e)
+                        Single.just(GetPersonResponse.badRequest(toError(e)))
                     } else {
-                        GetPersonResponse.internalServerError(e.toError())
+                        Single.error(e)
                     }
-                }
+                })
     }
 
-    override fun updatePerson(id: String, person: Person): Single<UpdatePersonResponse> {
-        return wrapException { personService.updatePerson(id, person) }
+    override fun updatePerson(
+            singleRequest: Single<UpdatePersonRequest>): Single<UpdatePersonResponse> {
+
+        return singleRequest
+                .flatMap<Person>({ request ->
+                    personService.updatePerson(
+                            id = request.id,
+                            person = request.person)
+                })
                 .map(UpdatePersonResponse.Companion::ok)
-                .doOnError(this::logException)
-                .onErrorReturn { e ->
+                .onErrorResumeNext({ e ->
                     if (e is ValidationException) {
-                        UpdatePersonResponse.badRequest(e.toError())
+                        log.debug("Validation exception", e)
+                        Single.just(UpdatePersonResponse.badRequest(toError(e)))
                     } else {
-                        UpdatePersonResponse.internalServerError(e.toError())
+                        Single.error(e)
                     }
-                }
+                })
     }
 
     companion object {

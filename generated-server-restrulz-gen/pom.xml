@@ -10,7 +10,7 @@
   <artifactId>generated-server-restrulz-gen</artifactId>
 
   <properties>
-    <dependencies.restrulz-jvm.version>0.9.4</dependencies.restrulz-jvm.version>
+    <dependencies.restrulz-jvm.version>0.9.5</dependencies.restrulz-jvm.version>
     <dependencies.spring.version>4.3.7.RELEASE</dependencies.spring.version>
     <java.version>1.8</java.version>
     <kotlin.version>1.1.1</kotlin.version>
@@ -59,6 +59,11 @@
     <dependency>
       <groupId>com.gantsign.restrulz</groupId>
       <artifactId>com.gantsign.restrulz.validation</artifactId>
+      <version>${dependencies.restrulz-jvm.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.gantsign.restrulz</groupId>
+      <artifactId>com.gantsign.restrulz.util</artifactId>
       <version>${dependencies.restrulz-jvm.version}</version>
     </dependency>
     <dependency>

@@ -18,6 +18,8 @@
             </option>
             <option name="_commonCompilerArguments">
               <DummyImpl>
+                <option name="languageVersion" value="1.1" />
+                <option name="apiVersion" value="1.1" />
                 <option name="pluginClasspaths">
                   <array>
                     <option value="$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-maven-allopen/1.1.1/kotlin-maven-allopen-1.1.1.jar" />
@@ -46,30 +48,28 @@
         </option>
       </configuration>
     </facet>
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/kotlin" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/com" isTestSource="false" generated="true" />
-      <excludeFolder url="file://$MODULE_DIR$/target/classes" />
-      <excludeFolder url="file://$MODULE_DIR$/target/dependency-maven-plugin-markers" />
-      <excludeFolder url="file://$MODULE_DIR$/target/failsafe-reports" />
-      <excludeFolder url="file://$MODULE_DIR$/target/maven-archiver" />
-      <excludeFolder url="file://$MODULE_DIR$/target/maven-status" />
-      <excludeFolder url="file://$MODULE_DIR$/target/rrd" />
-      <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.7" level="project" />
-    <orderEntry type="library" name="Maven: com.gantsign.restrulz:com.gantsign.restrulz.jackson:0.9.4" level="project" />
-    <orderEntry type="library" name="Maven: com.gantsign.restrulz:com.gantsign.restrulz.json:0.9.4" level="project" />
-    <orderEntry type="library" name="Maven: com.gantsign.restrulz:com.gantsign.restrulz.spring.mvc:0.9.4" level="project" />
+    <orderEntry type="library" name="Maven: com.gantsign.restrulz:com.gantsign.restrulz.jackson:0.9.5" level="project" />
+    <orderEntry type="library" name="Maven: com.gantsign.restrulz:com.gantsign.restrulz.json:0.9.5" level="project" />
+    <orderEntry type="library" name="Maven: com.gantsign.restrulz:com.gantsign.restrulz.spring.mvc:0.9.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.3.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:4.3.7.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: com.gantsign.restrulz:com.gantsign.restrulz.validation:0.9.4" level="project" />
+    <orderEntry type="library" name="Maven: com.gantsign.restrulz:com.gantsign.restrulz.validation:0.9.5" level="project" />
+    <orderEntry type="library" name="Maven: com.gantsign.restrulz:com.gantsign.restrulz.util:0.9.5" level="project" />
     <orderEntry type="module" module-name="schema" />
     <orderEntry type="library" name="Maven: io.reactivex.rxjava2:rxjava:2.0.7" level="project" />
     <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.0" level="project" />

@@ -5,7 +5,7 @@
     "build": "./node_modules/.bin/ts-node ./generate-server.ts"
   },
   "devDependencies": {
-    "@gantsign/restrulz-gen": "^0.9.8",
+    "@gantsign/restrulz-gen": "^0.9.10",
     "ts-node": "^2.0.0",
     "typescript": "^2.1.5"
   }
